@@ -31,7 +31,21 @@ namespace SFHackDay.Model
             get { return _message; }
             set { _message = value; OnPropertyChanged(()=> this.Message); }
         }
+        int _strengthNumber;
 
+        public int StrengthNumber
+        {
+            get { return _strengthNumber; }
+            set { _strengthNumber = value; OnPropertyChanged(() => this.StrengthNumber); }
+        }
+
+        string _color;
+
+        public string Color
+        {
+            get { return _color; }
+            set { _color = value; OnPropertyChanged(() => this.Color); }
+        }
 
     }
 }

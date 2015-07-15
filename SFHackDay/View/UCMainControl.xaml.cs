@@ -30,8 +30,10 @@ namespace SFHackDay.View
 
         private void PBPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
+            VMMainControl vm = (VMMainControl)this.DataContext;
            if (sender is PasswordBox)
             {
+                vm.DoSomething(((PasswordBox)sender));
                if (((PasswordBox)sender).Password.Count()>0)
                 {
                     this.BNSubmit.IsEnabled = true;

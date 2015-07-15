@@ -72,6 +72,8 @@ namespace SFHackDay.ViewModel
                 int totalCharNotWord = 0;
                 ulong totalNumberOfRecord = 1;
                 ulong totalWordPossible = 1;
+                double numberOfHourToCrack = 0;
+                double numberOfMilliSecondsToCrack = 0;
                 List<string> numberOfWordInString = new List<string>(); 
                 int totalNumberOfVariable = 0;
                 var passwordBox = parameter as System.Windows.Controls.PasswordBox;
@@ -80,7 +82,7 @@ namespace SFHackDay.ViewModel
                 Regex rgxSpecial = new Regex("[^a-z0-9]", RegexOptions.IgnoreCase);
                 numberOfSpecialChar = rgxSpecial.Matches(password).Count;
                 //regex for digit 
-                Regex rgxNumber = new Regex(@"\d+", RegexOptions.IgnoreCase);
+                Regex rgxNumber = new Regex(@"\d", RegexOptions.IgnoreCase);
                 numberOfDigit = rgxNumber.Matches(password).Count;
                 // find alphabatic charcter 
                 Regex rgxNumberOfChar = new Regex("[a-z]",RegexOptions.IgnoreCase);
@@ -134,9 +136,33 @@ namespace SFHackDay.ViewModel
                totalNumberOfRecord =(ulong)(Math.Pow(10, numberOfDigit) * totalWordPossible * Math.Pow(POSSIBLE_SPEC_CHAR,numberOfSpecialChar) * totalNumberOfVariable)/2;
                double test1 = (Math.Log(((0.65477472 * totalNumberOfRecord) / 3542) + Math.Exp(14.66556)) - 14.66556);
                double test2 = Math.Exp(14.66556);
-               double test3 = 1.527243 * test1 * test2;                
-               Model.TimeToCrack = (((1.527243) * (Math.Log(((0.65477472 * totalNumberOfRecord) / 3542) + Math.Exp(14.66556)) - 14.66556)) * 1000).ToString("#.####") + " milliseconds" ;
-               Model.Message = "Password has " + totalNumberOfRecord + " half time possible combination." + "It has " + totalNumberOfVariable + " Variable.";
+               double test3 = 1.527243 * test1 * test2;   
+               numberOfMilliSecondsToCrack = (((1.527243) * (Math.Log(((0.65477472 * totalNumberOfRecord) / 3542) + Math.Exp(14.66556)) - 14.66556)) * 1000);
+               Model.TimeToCrack = numberOfMilliSecondsToCrack.ToString("#.####") + " milliseconds";
+               if (numberOfWord == 0)
+               {
+                   Model.Message = "Password has " + totalNumberOfRecord + " half time possible combination." + "It has " + totalNumberOfVariable + " Variable.";
+               }
+               else
+               {
+                   Model.Message = "Password has " + totalNumberOfRecord + " half time possible combination." + "It has " + totalNumberOfVariable + " variable, including" + numberOfWord +" word.";
+               }                
+               numberOfHourToCrack = Math.Round((numberOfMilliSecondsToCrack / (1000 * 60 * 60)),MidpointRounding.AwayFromZero);
+               if (numberOfHourToCrack < 2)
+               {
+                   Model.StrengthNumber = 33;
+                   Model.Color = "Red";
+               }
+               else if (numberOfHourToCrack < 36)
+               {
+                   Model.StrengthNumber = 66;
+                   Model.Color = "Yellow";
+               }
+               else
+               {
+                   Model.StrengthNumber = 100;
+                   Model.Color = "Green";
+               }
             }
 
             /* Password1

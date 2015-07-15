@@ -8,17 +8,17 @@
     <Grid>
         <TextBlock  Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold" Text="Check Your Password Strength"></TextBlock>
         <UniformGrid Name="UGOuter"  Rows="3" Columns="1">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">                
-                <UniformGrid Name="FirstRow" Rows="1" Columns="2">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,0,0">                
+                <UniformGrid HorizontalAlignment="Center" Name="FirstRow" Rows="1" Columns="1">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Name="LBEnterPW" Foreground="White" Margin="5">Enter Password</TextBlock>
-                        <PasswordBox  PasswordChar="*" VerticalContentAlignment="Center" FontSize="12" Name="PBPassword" PasswordChanged="PBPassword_PasswordChanged"  MaxLength="10" Height="25" MinWidth="100"></PasswordBox>
-                        <Button Name="BNSubmit" Command="{Binding HandleButton}" CommandParameter="{Binding ElementName=PBPassword}">Check MTBF</Button>
+                        <PasswordBox  PasswordChar="*" VerticalContentAlignment="Center" FontSize="12" Name="PBPassword" PasswordChanged="PBPassword_PasswordChanged"  MaxLength="14" Height="25" MinWidth="100"></PasswordBox>
+                        <Button Visibility="Hidden" Name="BNSubmit" Command="{Binding HandleButton}" CommandParameter="{Binding ElementName=PBPassword}">Check MTBF</Button>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                    <!--<StackPanel Orientation="Vertical" HorizontalAlignment="Center" Visibility="Hidden">
                         <CheckBox Name="CBMethod1" Foreground="White">Method 1</CheckBox>
                         <CheckBox Name="CBMethod2" Foreground="White">Method 2</CheckBox>
-                    </StackPanel>
+                    </StackPanel>-->
                 </UniformGrid>
             </StackPanel>
             <UniformGrid Rows="1" Columns="2">
@@ -34,16 +34,9 @@
             <StackPanel VerticalAlignment="Center" Grid.RowSpan="2" >
                 <TextBlock Foreground="White" Text="Strength" Margin="10,0,0,0"></TextBlock>
                 <StackPanel Margin="0,0,10,0">
-                <TextBlock Foreground="White" HorizontalAlignment="Center" Text="Goodness 1"></TextBlock>
-                <ProgressBar Minimum="0" Maximum="100" Foreground="Yellow"  Value="75" Margin="15" Height="15"></ProgressBar>
-                </StackPanel>
-                <StackPanel Margin="0,0,10,0">
-                    <TextBlock Foreground="White" HorizontalAlignment="Center" Text="Goodness 2"></TextBlock>
-                    <ProgressBar Minimum="0" Maximum="100" Foreground="Green"  Value="75" Margin="15" Height="15"></ProgressBar>
-                </StackPanel>
-                <StackPanel Margin="0,0,10,0">
-                    <TextBlock Foreground="White" HorizontalAlignment="Center" Text="Overall"></TextBlock>
-                    <ProgressBar Minimum="0" Maximum="100" Foreground="Red"  Value="75" Margin="15" Height="15"></ProgressBar>
+                    <TextBlock Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" Text="Password Half Life Strength"></TextBlock>
+                    <ProgressBar Minimum="0" Maximum="100" Foreground="{Binding Model.Color}"  Value="{Binding Model.StrengthNumber}" Margin="15" Height="40"></ProgressBar>
+                    <TextBlock Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding Model.TimeToCrack}"></TextBlock>
                 </StackPanel>
             </StackPanel>
         </UniformGrid>
